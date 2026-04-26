@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>zenith Hub</title>
+    <title>Zenith Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --accent: #9d4edd;
+            --glass: rgba(10, 10, 12, 0.75);
+            --border: rgba(255, 255, 255, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body { 
             background-color: #000; 
@@ -18,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* Video Background Fix */
+        /* --- VIDEO BACKGROUND --- */
         .video-container {
             position: fixed;
             top: 0; left: 0;
@@ -34,30 +41,11 @@
             width: 100%;
             height: auto;
             max-height: 100%;
-            object-fit: contain; 
+            object-fit: contain;
             filter: brightness(0.5);
         }
 
-        /* Tombol Unmute */
-        #unmute-btn {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            background: rgba(124, 58, 237, 0.85);
-            backdrop-filter: blur(5px);
-            border: 2px solid white;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            display: none;
-        }
-
-        /* Layer Salju */
+        /* --- PARTIKEL DAUN MAPEL --- */
         #particles-js {
             position: fixed;
             top: 0; left: 0;
@@ -65,58 +53,128 @@
             z-index: -1;
         }
 
+        /* --- LAYOUT UTAMA (TIDAK DIUBAH) --- */
         .content-wrapper {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 400px;
-            /* DITAMBAH: Biar menu lebih ke bawah */
-            padding: 150px 20px 50px 20px; 
+            max-width: 420px;
+            padding: 50px 25px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px;
         }
 
-        /* Card Link Style */
-        .link-card {
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 30px 22px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .zenith-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            background: linear-gradient(to bottom, #ffffff 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .build-section { margin: 15px 0 25px 0; }
+        .build-label {
+            display: block;
+            color: #64748b;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        .tech-badge {
             display: flex;
             align-items: center;
-            background-color: rgba(124, 58, 237, 0.7); 
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 15px;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 10px;
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tech-icon { width: 12px; height: 12px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .section-label {
+            display: block;
+            color: #64748b;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .capsule {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 100px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            border: 1.5px solid;
+            gap: 12px;
             text-decoration: none;
+            transition: all 0.3s ease;
+            justify-content: space-between;
+        }
+
+        .capsule:active { transform: scale(0.95); }
+
+        .cap-left { display: flex; align-items: center; gap: 12px; }
+        .cap-info { display: flex; flex-direction: column; text-align: left; }
+        .cap-title { font-size: 11px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+        .cap-val { font-size: 9px; color: #94a3b8; }
+        
+        .blue { border-color: rgba(52, 152, 219, 0.5); }
+        .green { border-color: rgba(46, 204, 113, 0.5); }
+        .pink { border-color: rgba(233, 30, 99, 0.5); }
+        .orange { border-color: rgba(243, 156, 18, 0.5); }
+        .purple { border-color: rgba(157, 78, 221, 0.5); }
+        .cyan { border-color: rgba(0, 136, 204, 0.5); }
+
+        #unmute-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: var(--accent);
             color: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            transition: 0.3s;
-            -webkit-tap-highlight-color: transparent;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: bold;
+            display: none;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 10px 20px rgba(157, 78, 221, 0.4);
         }
-
-        .link-card:active { transform: scale(0.95); }
-
-        .icon-box {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            width: 45px; height: 45px;
-            display: flex; align-items: center; justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .yt-logo { width: 24px; height: 24px; fill: white; }
-        .text-content { flex-grow: 1; }
-        .title { font-weight: 800; font-size: 1rem; display: block; }
-        .subtitle { font-size: 0.75rem; opacity: 0.8; display: block; }
-
-        .action-icon {
-            background-color: #fff; color: #000;
-            border-radius: 8px; width: 30px; height: 30px;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .coffee { background-color: rgba(251, 191, 36, 0.9); color: #000; }
-        .coffee .action-icon { background-color: #000; color: #fff; }
     </style>
 </head>
 <body>
@@ -127,85 +185,137 @@
         </video>
     </div>
 
-    <button id="unmute-btn">TAP UNTUK MUSIK 🔊</button>
+    <button id="unmute-btn">ACTIVATE AUDIO 🔊</button>
     <div id="particles-js"></div>
 
     <div class="content-wrapper">
-        <a href="https://example.com" class="link-card">
-            <div class="icon-box">
-                <svg class="yt-logo" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        
+        <div class="glass-card">
+            <h1 class="zenith-title">ZenithHub</h1>
+            
+            <div class="build-section">
+                <span class="build-label">System Architecture:</span>
+                <div class="tech-stack">
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/nextdotjs/white"> NextJS</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/javascript/F7DF1E"> JS</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/astro/white"> Astro</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/typescript/3178C6"> TS</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/vercel/white"> Vercel</div>
+                </div>
             </div>
-            <div class="text-content">
-                <span class="title">Nonton Anime</span>
-                <span class="subtitle">Streaming Anime Sub Indo</span>
+
+            <div class="stats-grid">
+                <div class="capsule blue">
+                    <div class="cap-left"><span>🌐</span><div class="cap-info"><span class="cap-title">TOTAL</span><span id="t-val" class="cap-val">421</span></div></div>
+                </div>
+                <div class="capsule green">
+                    <div class="cap-left"><span>🟢</span><div class="cap-info"><span class="cap-title">ONLINE</span><span id="o-val" class="cap-val">38</span></div></div>
+                </div>
+                <div class="capsule pink">
+                    <div class="cap-left"><span>📅</span><div class="cap-info"><span class="cap-title">TODAY</span><span id="v-val" class="cap-val">192</span></div></div>
+                </div>
+                <div class="capsule orange">
+                    <div class="cap-left"><span>🔥</span><div class="cap-info"><span class="cap-title">PEAK</span><span id="p-val" class="cap-val">76</span></div></div>
+                </div>
             </div>
-            <div class="action-icon"><i data-lucide="play" size="14"></i></div>
-        </a>
+        </div>
 
-        <a href="https://example.com" class="link-card">
-            <div class="icon-box">
-                <svg class="yt-logo" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        <div class="glass-card">
+            <span class="section-label">Navigation Center</span>
+            <div class="nav-links">
+                <a href="#" class="capsule purple">
+                    <div class="cap-left"><i data-lucide="play-circle" size="18"></i><div class="cap-info"><span class="cap-title">Nonton Anime</span><span class="cap-val">Streaming Sub Indo</span></div></div>
+                    <i data-lucide="chevron-right" size="14"></i>
+                </a>
+                <a href="#" class="capsule purple">
+                    <div class="cap-left"><i data-lucide="tv-2" size="18"></i><div class="cap-info"><span class="cap-title">Nonton Donghua</span><span class="cap-val">Update Terbaru</span></div></div>
+                    <i data-lucide="chevron-right" size="14"></i>
+                </a>
+                <a href="#" class="capsule purple">
+                    <div class="cap-left"><i data-lucide="book-open" size="18"></i><div class="cap-info"><span class="cap-title">Baca Manhwa</span><span class="cap-val">Koleksi lengkap</span></div></div>
+                    <i data-lucide="chevron-right" size="14"></i>
+                </a>
+                <a href="#" class="capsule purple">
+                    <div class="cap-left"><i data-lucide="book" size="18"></i><div class="cap-info"><span class="cap-title">eBook Reader</span><span class="cap-val">Perpustakaan pribadi</span></div></div>
+                    <i data-lucide="chevron-right" size="14"></i>
+                </a>
+                <a href="#" class="capsule orange">
+                    <div class="cap-left"><i data-lucide="coffee" size="18"></i><div class="cap-info"><span class="cap-title">Traktir Kopi</span><span class="cap-val">Support Creator</span></div></div>
+                    <i data-lucide="heart" size="14" style="fill:#f39c12"></i>
+                </a>
+                <a href="https://t.me/Bleszh" target="_blank" class="capsule cyan">
+                    <div class="cap-left"><i data-lucide="send" size="18"></i><div class="cap-info"><span class="cap-title">Contact</span><span class="cap-val">Telegram</span></div></div>
+                    <i data-lucide="external-link" size="14"></i>
+                </a>
             </div>
-            <div class="text-content">
-                <span class="title">Nonton Donghua</span>
-                <span class="subtitle">Streaming Donghua Terbaru</span>
-            </div>
-            <div class="action-icon"><i data-lucide="play" size="14"></i></div>
-        </a>
-
-        <a href="https://example.com" class="link-card">
-            <div class="icon-box"><i data-lucide="book-open"></i></div>
-            <div class="text-content"><span class="title">Baca Manhwa</span><span class="subtitle">Koleksi Komik Terlengkap</span></div>
-            <div class="action-icon"><i data-lucide="chevron-right" size="14"></i></div>
-        </a>
-
-        <a href="https://example.com" class="link-card">
-            <div class="icon-box"><i data-lucide="book"></i></div>
-            <div class="text-content"><span class="title">eBook Reader</span><span class="subtitle">pembaca buku digital&Perpustakaan Pribadi</span></div>
-            <div class="action-icon"><i data-lucide="chevron-right" size="14"></i></div>
-        </a>
-
-        <a href="https://example.com" class="link-card coffee">
-            <div class="icon-box"><i data-lucide="coffee"></i></div>
-            <div class="text-content"><span class="title">Traktir Kopi</span><span class="subtitle">Support kreator di sini</span></div>
-            <div class="action-icon"><i data-lucide="heart" size="14"></i></div>
-        </a>
+        </div>
     </div>
 
     <script>
         lucide.createIcons();
 
+        /* --- KONFIGURASI DAUN MAPEL GUGUR --- */
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 50 },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.3 },
-                "size": { "value": 2 },
-                "move": { "enable": true, "speed": 1, "direction": "bottom", "out_mode": "out" }
-            }
+                "number": { 
+                    "value": 20, 
+                    "density": { "enable": true, "value_area": 800 } 
+                },
+                "shape": {
+                    "type": "image",
+                    "image": {
+                        "src": "https://raw.githubusercontent.com/ziyosen/hompage/main/png-transparent-red-maple-tree-autumn-autumn-leaf-color-2018-maple-leaf-woody-plant.png",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": { "value": 0.85, "random": true },
+                "size": { "value": 22, "random": true },
+                "line_linked": { "enable": false },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "bottom",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": { "enable": true, "rotateX": 600, "rotateY": 1200 }
+                }
+            },
+            "interactivity": { "events": { "onclick": { "enable": false }, "onhover": { "enable": false } } },
+            "retina_detect": true
         });
+
+        function updateStats() {
+            const o = document.getElementById('o-val');
+            const v = document.getElementById('v-val');
+            const p = document.getElementById('p-val');
+            let online = parseInt(o.innerText);
+            let visitor = parseInt(v.innerText);
+            let peak = parseInt(p.innerText);
+            online = Math.max(15, Math.min(95, online + (Math.floor(Math.random() * 3) - 1)));
+            if(Math.random() > 0.8) visitor += 1;
+            if(online > peak) peak = online;
+            o.innerText = online; v.innerText = visitor; p.innerText = peak;
+        }
+        setInterval(updateStats, 3000);
 
         (function(){
             const video = document.getElementById('bg-video');
             const btn = document.getElementById('unmute-btn');
-            
             function handleAutoplay() {
                 video.play().then(() => {
                     if (video.muted) btn.style.display = 'block';
                 }).catch(() => {
-                    video.muted = true;
-                    video.play();
+                    video.muted = true; video.play();
                     btn.style.display = 'block';
                 });
             }
-
             btn.addEventListener('click', function () {
-                video.muted = false;
-                video.volume = 0.6;
+                video.muted = false; video.volume = 0.5;
                 btn.style.display = 'none';
             });
-
             window.addEventListener('load', handleAutoplay);
         })();
     </script>

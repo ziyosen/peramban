@@ -53,7 +53,7 @@
             z-index: -1;
         }
 
-        /* --- LAYOUT UTAMA (TIDAK DIUBAH) --- */
+        /* --- LAYOUT UTAMA --- */
         .content-wrapper {
             position: relative;
             z-index: 10;
@@ -131,13 +131,14 @@
             gap: 12px;
         }
 
+        /* --- WIDGET STYLE (BALIK KE ASLI + PERSEGI PANJANG) --- */
         .capsule {
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 100px;
-            padding: 14px 18px;
+            border-radius: 12px; /* Bikin persegi panjang rapi */
+            padding: 12px 14px;
             display: flex;
             align-items: center;
-            border: 1.5px solid;
+            border: 2px solid; /* Ketebalan border disamakan dengan screenshot */
             gap: 12px;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -151,12 +152,16 @@
         .cap-title { font-size: 11px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
         .cap-val { font-size: 9px; color: #94a3b8; }
         
-        .blue { border-color: rgba(52, 152, 219, 0.5); }
-        .green { border-color: rgba(46, 204, 113, 0.5); }
-        .pink { border-color: rgba(233, 30, 99, 0.5); }
-        .orange { border-color: rgba(243, 156, 18, 0.5); }
-        .purple { border-color: rgba(157, 78, 221, 0.5); }
-        .cyan { border-color: rgba(0, 136, 204, 0.5); }
+        /* WARNA BORDER DARI SANKAVERSE */
+        .blue { border-color: #00d2ff !important; }
+        .green { border-color: #00ff9f !important; }
+        .pink { border-color: #ff007a !important; }
+        .orange { border-color: #ffb800 !important; }
+        .purple { border-color: #9d4edd !important; }
+        .cyan { border-color: #00e5ff !important; }
+
+        /* Navigasi tetap pakai border-radius asli (lonjong) biar estetik */
+        .nav-link { border-radius: 100px !important; }
 
         #unmute-btn {
             position: fixed;
@@ -212,7 +217,7 @@
                     <div class="cap-left"><span>🟢</span><div class="cap-info"><span class="cap-title">online user</span><span id="o-val" class="cap-val">38</span></div></div>
                 </div>
                 <div class="capsule pink">
-                    <div class="cap-left"><span>📅</span><div class="cap-info"><span class="cap-title">pengunjung harian</span><span id="v-val" class="cap-val">192</span></div></div>
+                    <div class="cap-left"><span>📅</span><div class="cap-info"><span class="cap-title">pengunjung</span><span id="v-val" class="cap-val">192</span></div></div>
                 </div>
                 <div class="capsule orange">
                     <div class="cap-left"><span>🔥</span><div class="cap-info"><span class="cap-title">peak today</span><span id="p-val" class="cap-val">76</span></div></div>
@@ -223,27 +228,27 @@
         <div class="glass-card">
             <span class="section-label">Navigation Center</span>
             <div class="nav-links">
-                <a href="#" class="capsule purple">
+                <a href="#" class="capsule nav-link purple">
                     <div class="cap-left"><i data-lucide="play-circle" size="18"></i><div class="cap-info"><span class="cap-title">Nonton Anime</span><span class="cap-val">Streaming Sub Indo</span></div></div>
                     <i data-lucide="chevron-right" size="14"></i>
                 </a>
-                <a href="#" class="capsule purple">
+                <a href="#" class="capsule nav-link purple">
                     <div class="cap-left"><i data-lucide="tv-2" size="18"></i><div class="cap-info"><span class="cap-title">Nonton Donghua</span><span class="cap-val">Update Terbaru</span></div></div>
                     <i data-lucide="chevron-right" size="14"></i>
                 </a>
-                <a href="#" class="capsule purple">
+                <a href="#" class="capsule nav-link purple">
                     <div class="cap-left"><i data-lucide="book-open" size="18"></i><div class="cap-info"><span class="cap-title">Baca Manhwa</span><span class="cap-val">Koleksi lengkap</span></div></div>
                     <i data-lucide="chevron-right" size="14"></i>
                 </a>
-                <a href="#" class="capsule purple">
+                <a href="#" class="capsule nav-link purple">
                     <div class="cap-left"><i data-lucide="book" size="18"></i><div class="cap-info"><span class="cap-title">eBook Reader</span><span class="cap-val">Perpustakaan pribadi</span></div></div>
                     <i data-lucide="chevron-right" size="14"></i>
                 </a>
-                <a href="#" class="capsule orange">
+                <a href="#" class="capsule nav-link orange">
                     <div class="cap-left"><i data-lucide="coffee" size="18"></i><div class="cap-info"><span class="cap-title">Traktir Kopi</span><span class="cap-val">Support Creator</span></div></div>
-                    <i data-lucide="heart" size="14" style="fill:#f39c12"></i>
+                    <i data-lucide="heart" size="14" style="fill:#ffb800"></i>
                 </a>
-                <a href="https://t.me/Bleszh" target="_blank" class="capsule cyan">
+                <a href="https://t.me/Bleszh" target="_blank" class="capsule nav-link cyan">
                     <div class="cap-left"><i data-lucide="send" size="18"></i><div class="cap-info"><span class="cap-title">Contact</span><span class="cap-val">Telegram</span></div></div>
                     <i data-lucide="external-link" size="14"></i>
                 </a>
@@ -257,24 +262,19 @@
         /* --- KONFIGURASI DAUN MAPEL GUGUR --- */
         particlesJS("particles-js", {
             "particles": {
-                "number": { 
-                    "value": 20, 
-                    "density": { "enable": true, "value_area": 800 } 
-                },
+                "number": { "value": 20, "density": { "enable": true, "value_area": 800 } },
                 "shape": {
                     "type": "image",
                     "image": {
                         "src": "https://raw.githubusercontent.com/ziyosen/hompage/main/1000362650-removebg-preview.png",
-                        "width": 100,
-                        "height": 100
+                        "width": 100, "height": 100
                     }
                 },
                 "opacity": { "value": 0.85, "random": true },
                 "size": { "value": 22, "random": true },
-                "line_linked": { "enable": false },
                 "move": {
                     "enable": true,
-                    "speed": 2,
+                    "speed": 3.2, /* Kecepatan sedikit lebih cepat buat alunan Hall of Fame */
                     "direction": "bottom",
                     "random": true,
                     "straight": false,
@@ -283,7 +283,6 @@
                     "attract": { "enable": true, "rotateX": 600, "rotateY": 1200 }
                 }
             },
-            "interactivity": { "events": { "onclick": { "enable": false }, "onhover": { "enable": false } } },
             "retina_detect": true
         });
 
@@ -305,17 +304,9 @@
             const video = document.getElementById('bg-video');
             const btn = document.getElementById('unmute-btn');
             function handleAutoplay() {
-                video.play().then(() => {
-                    if (video.muted) btn.style.display = 'block';
-                }).catch(() => {
-                    video.muted = true; video.play();
-                    btn.style.display = 'block';
-                });
+                video.play().then(() => { if (video.muted) btn.style.display = 'block'; }).catch(() => { video.muted = true; video.play(); btn.style.display = 'block'; });
             }
-            btn.addEventListener('click', function () {
-                video.muted = false; video.volume = 0.5;
-                btn.style.display = 'none';
-            });
+            btn.addEventListener('click', function () { video.muted = false; video.volume = 0.5; btn.style.display = 'none'; });
             window.addEventListener('load', handleAutoplay);
         })();
     </script>

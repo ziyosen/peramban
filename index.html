@@ -2,33 +2,67 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Sankanime Links</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
 
-        body {
-            background-color: #0f0f0f;
-            color: white;
-            display: flex;
-            justify-content: center;
+        body { 
+            background-color: #000; 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
             overflow-x: hidden;
         }
 
+        /* Video Background Fix */
+        .video-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain; 
+            filter: brightness(0.5);
+        }
+
+        /* Tombol Unmute */
+        #unmute-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(124, 58, 237, 0.85);
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Layer Salju */
         #particles-js {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
         }
 
         .content-wrapper {
@@ -36,166 +70,144 @@
             z-index: 10;
             width: 100%;
             max-width: 400px;
-            padding: 40px 15px;
+            /* DITAMBAH: Biar menu lebih ke bawah */
+            padding: 150px 20px 50px 20px; 
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        /* Style Kartu Link ala Neo-Brutalism */
+        /* Card Link Style */
         .link-card {
             display: flex;
             align-items: center;
-            background-color: #7c3aed; 
-            border: 3px solid #000;
-            border-radius: 10px;
-            padding: 12px;
+            background-color: rgba(124, 58, 237, 0.7); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 15px;
             text-decoration: none;
             color: white;
-            position: relative;
-            box-shadow: 6px 6px 0px #000;
-            transition: all 0.1s ease-in-out;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: 0.3s;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .link-card:active {
-            transform: translate(3px, 3px);
-            box-shadow: 2px 2px 0px #000;
-        }
+        .link-card:active { transform: scale(0.95); }
 
-        /* Kotak Ikon di Depan */
         .icon-box {
             background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 12px;
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
             margin-right: 15px;
             flex-shrink: 0;
         }
 
-        /* Style khusus logo YouTube agar pas di kotak */
-        .yt-logo {
-            width: 28px;
-            height: 28px;
-            fill: white;
-        }
-
-        .text-content {
-            flex-grow: 1;
-        }
-
-        .title {
-            font-weight: 800;
-            font-size: 1.05rem;
-            display: block;
-        }
-
-        .subtitle {
-            font-size: 0.8rem;
-            opacity: 0.85;
-            display: block;
-        }
+        .yt-logo { width: 24px; height: 24px; fill: white; }
+        .text-content { flex-grow: 1; }
+        .title { font-weight: 800; font-size: 1rem; display: block; }
+        .subtitle { font-size: 0.75rem; opacity: 0.8; display: block; }
 
         .action-icon {
-            background-color: #fff;
-            color: #000;
-            border: 2px solid #000;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 10px;
+            background-color: #fff; color: #000;
+            border-radius: 8px; width: 30px; height: 30px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* Traktir Kopi */
-        .coffee-card {
-            background-color: #fbbf24;
-            color: #000;
-        }
-        .coffee-card .icon-box { background-color: rgba(0,0,0,0.1); }
-        .coffee-card .action-icon { background-color: #000; color: #fff; }
+        .coffee { background-color: rgba(251, 191, 36, 0.9); color: #000; }
+        .coffee .action-icon { background-color: #000; color: #fff; }
     </style>
 </head>
 <body>
 
+    <div class="video-container">
+        <video id="bg-video" autoplay loop playsinline muted>
+            <source src="https://raw.githubusercontent.com/ziyosen/hompage/main/Nightcore%20-%20Princesses%20Don't%20Cry%20(Lyrics).mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <button id="unmute-btn">TAP UNTUK MUSIK 🔊</button>
     <div id="particles-js"></div>
 
     <div class="content-wrapper">
-        
         <a href="https://example.com" class="link-card">
             <div class="icon-box">
-                <svg class="yt-logo" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
+                <svg class="yt-logo" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </div>
             <div class="text-content">
                 <span class="title">Nonton Anime</span>
                 <span class="subtitle">Streaming Anime Sub Indo</span>
             </div>
-            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+            <div class="action-icon"><i data-lucide="play" size="14"></i></div>
         </a>
 
         <a href="https://example.com" class="link-card">
             <div class="icon-box">
-                <svg class="yt-logo" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
+                <svg class="yt-logo" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </div>
             <div class="text-content">
                 <span class="title">Nonton Donghua</span>
                 <span class="subtitle">Streaming Donghua Terbaru</span>
             </div>
-            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+            <div class="action-icon"><i data-lucide="play" size="14"></i></div>
         </a>
 
         <a href="https://example.com" class="link-card">
             <div class="icon-box"><i data-lucide="book-open"></i></div>
-            <div class="text-content">
-                <span class="title">Baca Manhwa</span>
-                <span class="subtitle">Koleksi Komik Terlengkap</span>
-            </div>
-            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+            <div class="text-content"><span class="title">Baca Manhwa</span><span class="subtitle">Koleksi Komik Terlengkap</span></div>
+            <div class="action-icon"><i data-lucide="chevron-right" size="14"></i></div>
         </a>
 
         <a href="https://example.com" class="link-card">
             <div class="icon-box"><i data-lucide="book"></i></div>
-            <div class="text-content">
-                <span class="title">Ebook</span>
-                <span class="subtitle">Download Novel Digital</span>
-            </div>
-            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+            <div class="text-content"><span class="title">Ebook</span><span class="subtitle">Download Novel Digital</span></div>
+            <div class="action-icon"><i data-lucide="download" size="14"></i></div>
         </a>
 
-        <a href="https://example.com" class="link-card coffee-card">
+        <a href="https://example.com" class="link-card coffee">
             <div class="icon-box"><i data-lucide="coffee"></i></div>
-            <div class="text-content">
-                <span class="title">Traktir Kopi</span>
-                <span class="subtitle">Support kreator di sini</span>
-            </div>
-            <div class="action-icon"><i data-lucide="heart" size="16"></i></div>
+            <div class="text-content"><span class="title">Traktir Kopi</span><span class="subtitle">Support kreator di sini</span></div>
+            <div class="action-icon"><i data-lucide="heart" size="14"></i></div>
         </a>
-
     </div>
 
     <script>
         lucide.createIcons();
+
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#7c3aed" },
+                "number": { "value": 50 },
+                "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.3 },
-                "size": { "value": 2, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#7c3aed", "opacity": 0.2 },
-                "move": { "enable": true, "speed": 1 }
-            },
-            "retina_detect": true
+                "size": { "value": 2 },
+                "move": { "enable": true, "speed": 1, "direction": "bottom", "out_mode": "out" }
+            }
         });
+
+        (function(){
+            const video = document.getElementById('bg-video');
+            const btn = document.getElementById('unmute-btn');
+            
+            function handleAutoplay() {
+                video.play().then(() => {
+                    if (video.muted) btn.style.display = 'block';
+                }).catch(() => {
+                    video.muted = true;
+                    video.play();
+                    btn.style.display = 'block';
+                });
+            }
+
+            btn.addEventListener('click', function () {
+                video.muted = false;
+                video.volume = 0.6;
+                btn.style.display = 'none';
+            });
+
+            window.addEventListener('load', handleAutoplay);
+        })();
     </script>
 </body>
 </html>

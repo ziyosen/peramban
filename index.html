@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankanime Links</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: white;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Style Kartu Link ala Neo-Brutalism */
+        .link-card {
+            display: flex;
+            align-items: center;
+            background-color: #7c3aed; 
+            border: 3px solid #000;
+            border-radius: 10px;
+            padding: 12px;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            box-shadow: 6px 6px 0px #000;
+            transition: all 0.1s ease-in-out;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .link-card:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Kotak Ikon di Depan */
+        .icon-box {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Style khusus logo YouTube agar pas di kotak */
+        .yt-logo {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .text-content {
+            flex-grow: 1;
+        }
+
+        .title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            opacity: 0.85;
+            display: block;
+        }
+
+        .action-icon {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        /* Traktir Kopi */
+        .coffee-card {
+            background-color: #fbbf24;
+            color: #000;
+        }
+        .coffee-card .icon-box { background-color: rgba(0,0,0,0.1); }
+        .coffee-card .action-icon { background-color: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        
+        <a href="https://example.com" class="link-card">
+            <div class="icon-box">
+                <svg class="yt-logo" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </div>
+            <div class="text-content">
+                <span class="title">Nonton Anime</span>
+                <span class="subtitle">Streaming Anime Sub Indo</span>
+            </div>
+            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+        </a>
+
+        <a href="https://example.com" class="link-card">
+            <div class="icon-box">
+                <svg class="yt-logo" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </div>
+            <div class="text-content">
+                <span class="title">Nonton Donghua</span>
+                <span class="subtitle">Streaming Donghua Terbaru</span>
+            </div>
+            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+        </a>
+
+        <a href="https://example.com" class="link-card">
+            <div class="icon-box"><i data-lucide="book-open"></i></div>
+            <div class="text-content">
+                <span class="title">Baca Manhwa</span>
+                <span class="subtitle">Koleksi Komik Terlengkap</span>
+            </div>
+            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+        </a>
+
+        <a href="https://example.com" class="link-card">
+            <div class="icon-box"><i data-lucide="book"></i></div>
+            <div class="text-content">
+                <span class="title">Ebook</span>
+                <span class="subtitle">Download Novel Digital</span>
+            </div>
+            <div class="action-icon"><i data-lucide="copy" size="16"></i></div>
+        </a>
+
+        <a href="https://example.com" class="link-card coffee-card">
+            <div class="icon-box"><i data-lucide="coffee"></i></div>
+            <div class="text-content">
+                <span class="title">Traktir Kopi</span>
+                <span class="subtitle">Support kreator di sini</span>
+            </div>
+            <div class="action-icon"><i data-lucide="heart" size="16"></i></div>
+        </a>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#7c3aed" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3 },
+                "size": { "value": 2, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#7c3aed", "opacity": 0.2 },
+                "move": { "enable": true, "speed": 1 }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>

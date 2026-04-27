@@ -131,14 +131,13 @@
             gap: 12px;
         }
 
-        /* --- WIDGET STYLE (BALIK KE ASLI + PERSEGI PANJANG) --- */
         .capsule {
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px; /* Bikin persegi panjang rapi */
+            border-radius: 12px;
             padding: 12px 14px;
             display: flex;
             align-items: center;
-            border: 2px solid; /* Ketebalan border disamakan dengan screenshot */
+            border: 2px solid;
             gap: 12px;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -152,15 +151,14 @@
         .cap-title { font-size: 11px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
         .cap-val { font-size: 9px; color: #94a3b8; }
         
-        /* WARNA BORDER DARI SANKAVERSE */
         .blue { border-color: #00d2ff !important; }
         .green { border-color: #00ff9f !important; }
         .pink { border-color: #ff007a !important; }
         .orange { border-color: #ffb800 !important; }
         .purple { border-color: #9d4edd !important; }
         .cyan { border-color: #00e5ff !important; }
+        .red { border-color: #ff4d4d !important; }
 
-        /* Navigasi tetap pakai border-radius asli (lonjong) biar estetik */
         .nav-link { border-radius: 100px !important; }
 
         #unmute-btn {
@@ -202,6 +200,8 @@
                 <span class="build-label">System Architecture:</span>
                 <div class="tech-stack">
                     <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/nextdotjs/white"> NextJS</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/rust/DEA584"> Rust</div>
+                    <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/cloudflare/F38020"> Cloudflare</div>
                     <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/javascript/F7DF1E"> JS</div>
                     <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/astro/white"> Astro</div>
                     <div class="tech-badge"><img class="tech-icon" src="https://cdn.simpleicons.org/typescript/3178C6"> TS</div>
@@ -244,6 +244,10 @@
                     <div class="cap-left"><i data-lucide="book" size="18"></i><div class="cap-info"><span class="cap-title">eBook Reader</span><span class="cap-val">Perpustakaan pribadi</span></div></div>
                     <i data-lucide="chevron-right" size="14"></i>
                 </a>
+                <a href="#" class="capsule nav-link red">
+                    <div class="cap-left"><i data-lucide="shield-check" size="18"></i><div class="cap-info"><span class="cap-title">v2ray vpn</span><span class="cap-val">Fast & Secure Proxy</span></div></div>
+                    <i data-lucide="chevron-right" size="14"></i>
+                </a>
                 <a href="#" class="capsule nav-link orange">
                     <div class="cap-left"><i data-lucide="coffee" size="18"></i><div class="cap-info"><span class="cap-title">Traktir Kopi</span><span class="cap-val">Support Creator</span></div></div>
                     <i data-lucide="heart" size="14" style="fill:#ffb800"></i>
@@ -259,7 +263,6 @@
     <script>
         lucide.createIcons();
 
-        /* --- KONFIGURASI DAUN MAPEL GUGUR --- */
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 20, "density": { "enable": true, "value_area": 800 } },
@@ -274,7 +277,7 @@
                 "size": { "value": 22, "random": true },
                 "move": {
                     "enable": true,
-                    "speed": 3.2, /* Kecepatan sedikit lebih cepat buat alunan Hall of Fame */
+                    "speed": 3.2,
                     "direction": "bottom",
                     "random": true,
                     "straight": false,

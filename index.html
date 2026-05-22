@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ZeinthHub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=700&family=Plus+Jakarta+Sans:wght=400;600;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- jQuery & Lettering.js untuk Loading Ticker -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
     <style>
         :root {
             --accent: #9d4edd;
@@ -183,10 +186,115 @@
             border: none;
             box-shadow: 0 10px 20px rgba(157, 78, 221, 0.4);
         }
+
+        /* --- STYLES UNTUK LOADING OVERLAY (TICKER) --- */
+        .loading-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a2a1a 0%, #000500 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .loading-overlay-scan {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,0,0.03) 0px, rgba(0,255,0,0.03) 2px, transparent 2px, transparent 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .loading-digital-noise {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-radial-gradient(circle at 20% 30%, rgba(0,255,0,0.02) 0px, rgba(0,255,0,0.02) 2px, transparent 2px, transparent 4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .loading-center-box {
+            text-align: center;
+            z-index: 2;
+            padding: 1rem;
+        }
+
+        .word {
+            position: relative;
+            color: #fff;
+            font-family: 'Source Code Pro', monospace;
+            font-size: clamp(1.8rem, 8vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(80,255,80,0.7), 0 0 6px rgba(0,255,0,0.5);
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            background: transparent;
+            padding: 0.2em 0.5em;
+            border-radius: 20px;
+            animation: subtleGlow 2s infinite alternate;
+        }
+
+        @keyframes subtleGlow {
+            0% { text-shadow: 0 0 8px rgba(80,255,80,0.4); }
+            100% { text-shadow: 0 0 20px rgba(80,255,80,0.9); }
+        }
+
+        .word span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .word span.done {
+            color: #6f6;
+            text-shadow: 0 0 10px #0f0;
+            transform: scale(1.02);
+        }
+
+        .word span.space-char {
+            white-space: pre;
+        }
+
+        .sub {
+            text-align: center;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.75rem;
+            color: #8f8;
+            margin-top: 1.5rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 300;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
 
+    <!-- SCREEN OVERLAY LOADING -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-digital-noise"></div>
+        <div class="loading-overlay-scan"></div>
+        <div class="loading-center-box">
+            <div class="word" id="mainWord">ZeinthHub Loading</div>
+            <div class="sub">initializing secure core</div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND VIDEO -->
     <div class="video-container">
         <video id="bg-video" autoplay loop playsinline muted>
             <source src="https://raw.githubusercontent.com/ziyosen/hompage/main/The Script - Hall of Fame (Lyrics) - Alternate (1080p).mp4" type="video/mp4">
@@ -196,6 +304,7 @@
     <button id="unmute-btn">ACTIVATE AUDIO 🔊</button>
     <div id="particles-js"></div>
 
+    <!-- KONTEN HALAMAN UTAMA -->
     <div class="content-wrapper">
         
         <div class="glass-card">
@@ -298,9 +407,11 @@
         </div>
     </div>
 
+    <!-- LOGIKA JAVASCRIPT GABUNGAN -->
     <script>
         lucide.createIcons();
 
+        // Inisialisasi Partikel Daun Mapel
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 20, "density": { "enable": true, "value_area": 800 } },
@@ -327,7 +438,7 @@
             "retina_detect": true
         });
 
-        // --- LOGIKA DATA WIDGET ---
+        // --- LOGIKA DATA WIDGET REALTIME ---
         function initStats() {
             const now = new Date();
             const today = now.toDateString();
@@ -337,9 +448,7 @@
             let storedOnline = localStorage.getItem('current_online');
             
             if (storedDate !== today) {
-                // RESET HARIAN: Random Pengunjung 110-125
                 const startRandom = Math.floor(Math.random() * (125 - 110 + 1)) + 110;
-                // RESET HARIAN: Random Online Start 60-65
                 const onlineRandom = Math.floor(Math.random() * (65 - 60 + 1)) + 60;
                 
                 localStorage.setItem('daily_visitor', startRandom);
@@ -364,16 +473,13 @@
             let visitor = parseInt(v.innerText);
             let peak = parseInt(p.innerText);
 
-            // 1. Logika Visitor (Peluang 5% nambah)
             if(Math.random() > 0.95) {
                 visitor += 1;
                 localStorage.setItem('daily_visitor', visitor);
             }
 
-            // 2. Logika Online User (Target 70-an, Pergerakan Lambat)
-            // Jarak perubahan dipersempit (Peluang cuma 10% tiap 3 detik buat gerak)
             if(Math.random() > 0.90) {
-                const targetOnline = 72; // Target stabil di area 70
+                const targetOnline = 72;
                 if (online < targetOnline) {
                     online += 1;
                 } else if (online > 65) {
@@ -382,10 +488,7 @@
                 localStorage.setItem('current_online', online);
             }
 
-            // 3. Logika Total User
             if(Math.random() > 0.99 && total < 1000) total += 1;
-
-            // 4. Logika Peak Today
             if(online > peak) peak = online;
 
             t.innerText = total;
@@ -397,15 +500,125 @@
         initStats();
         setInterval(updateStats, 3000);
 
-        (function(){
-            const video = document.getElementById('bg-video');
-            const btn = document.getElementById('unmute-btn');
-            function handleAutoplay() {
-                video.play().then(() => { if (video.muted) btn.style.display = 'block'; }).catch(() => { video.muted = true; video.play(); btn.style.display = 'block'; });
+        // --- LOGIKA PLAY VIDEO & UNMUTE BUTTON ---
+        const video = document.getElementById('bg-video');
+        const btn = document.getElementById('unmute-btn');
+        
+        function handleAutoplay() {
+            video.play().then(() => { 
+                if (video.muted) btn.style.display = 'block'; 
+            }).catch(() => { 
+                video.muted = true; 
+                video.play(); 
+                btn.style.display = 'block'; 
+            });
+        }
+        
+        btn.addEventListener('click', function () { 
+            video.muted = false; 
+            video.volume = 0.5; 
+            btn.style.display = 'none'; 
+        });
+
+        // --- LOGIKA TICKER LOADING SCREEN ---
+        function Ticker(elem) {
+          elem.lettering();
+          this.done = false;
+          this.cycleCount = 5;
+          this.cycleCurrent = 0;
+          this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+{}[]\\;\':"<>?,./`~'.split('');
+          this.charsCount = this.chars.length;
+          this.letters = elem.find('span');
+          this.letterCount = this.letters.length;
+          this.letterCurrent = 0;
+
+          this.letters.each(function() {
+            var $this = $(this);
+            var originalText = $this.text();
+            if (originalText === ' ') {
+              $this.attr('data-orig', ' ');
+              $this.text(' ');
+              $this.addClass('space-char');
+            } else {
+              $this.attr('data-orig', originalText);
+              $this.text('-');
             }
-            btn.addEventListener('click', function () { video.muted = false; video.volume = 0.5; btn.style.display = 'none'; });
-            window.addEventListener('load', handleAutoplay);
-        })();
+          });
+        }
+
+        Ticker.prototype.getChar = function() {
+          return this.chars[Math.floor(Math.random() * this.charsCount)];
+        };
+
+        Ticker.prototype.reset = function() {
+          this.done = false;
+          this.cycleCurrent = 0;
+          this.letterCurrent = 0;
+          this.letters.each(function() {
+            var $this = $(this);
+            var orig = $this.attr('data-orig');
+            if (orig !== ' ') {
+              $this.text(orig);
+            } else {
+              $this.text(' ');
+            }
+            $this.removeClass('done');
+          });
+          this.loop();
+        };
+
+        Ticker.prototype.loop = function() {
+          var self = this;
+
+          this.letters.each(function(index, elem) {
+            var $elem = $(elem);
+            if (index >= self.letterCurrent) {
+              var orig = $elem.attr('data-orig');
+              if (orig !== ' ' && !$elem.hasClass('done')) {
+                $elem.text(self.getChar());
+                $elem.css('opacity', Math.random() * 0.7 + 0.3);
+              }
+            }
+          });
+
+          if (this.cycleCurrent < this.cycleCount) {
+            this.cycleCurrent++;
+          } else if (this.letterCurrent < this.letterCount) {
+            var currLetter = this.letters.eq(this.letterCurrent);
+            var origChar = currLetter.attr('data-orig');
+            if (origChar !== ' ') {
+              currLetter.text(origChar);
+              currLetter.css('opacity', 1);
+              currLetter.addClass('done');
+            }
+            this.letterCurrent++;
+            this.cycleCurrent = 0;
+          } else {
+            this.done = true;
+          }
+
+          if (!this.done) {
+            requestAnimationFrame(function() {
+              self.loop();
+            });
+          } else {
+            // Ketika gulungan acak teks SELESAI terbaca seutuhnya:
+            $('.sub').text("system fully loaded. launching...");
+            
+            // Tahan layar loading selama tepat 3 detik sebelum transisi menghilang
+            setTimeout(function() {
+                document.getElementById('loadingScreen').classList.add('fade-out');
+                handleAutoplay(); // Jalankan fungsi video latar setelah loading terbuka
+            }, 3000);
+          }
+        };
+
+        // Inisialisasi Ticker saat dokumen siap
+        $(document).ready(function() {
+          var $word = $('#mainWord');
+          var ticker = new Ticker($word);
+          ticker.reset();
+        });
     </script>
 </body>
 </html>
